@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise Gift 🎁</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #20002c, #6a0572, #ab83a1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial;
+}
+
+.container {
+  text-align: center;
+  color: white;
+}
+
+h2 {
+  margin-bottom: 40px;
+}
+
+.gift {
+  font-size: 130px;
+  cursor: pointer;
+  transition: transform 0.5s;
+  display: inline-block;
+}
+
+.gift:hover {
+  transform: scale(1.1);
+}
+
+.open {
+  animation: openGift 1s forwards;
+  position: absolute;
+}
+
+@keyframes openGift {
+  0% { transform: scale(1) rotate(0); }
+  50% { transform: scale(1.5) rotate(15deg); }
+  100% { transform: scale(0) rotate(360deg); opacity: 0; }
+}
+
+.paper {
+  position: absolute;
+  top: -30px;
+  width: 12px;
+  height: 20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+#message {
+  font-size: 30px;
+  margin-top: 20px;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2 class="topic">🎁 Double Click to Open Your Gift 🎁</h2>
+  <div class="gift" id="gift">🎁</div>
+  <img
+  id="myPhoto"
+  src="WhatsApp Image 2026-11-25 at 10.11.42 AM.jpeg"
+  style="display:none; width:200px; height:200px; object-fit:cover;border-radius:20px; margin:20px auto; border:4px solid white;">
+  <div id="message">🎉 Surprise! 🎉</div>
+</div>
+
+<audio id="music" loop>
+  <source src="song-dharshini.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const gift = document.getElementById("gift");
+const music = document.getElementById("music");
+
+let opened = false;
+
+gift.addEventListener("dblclick", () => {
+  if (opened) return;
+  opened = true;
+        document.getElementById("myPhoto").style.display = "block";
+  gift.classList.add("open");
+  music.play().catch(() => {});
+
+  document.getElementById("message").style.display = "block";
+
+  const colors = [
+    "#ff0055", "#ffcc00", "#00ffcc",
+    "#ff66ff", "#ffffff", "#00ccff"
+  ];
+
+    document.querySelector(".topic").textContent="Happy Birthday Dharshini"
+
+  for (let i = 0; i < 120; i++) {
+    const paper = document.createElement("div");
+    paper.className = "paper";
+
+    paper.style.left = Math.random() * 100 + "vw";
+    paper.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    paper.style.animationDuration =
+      (Math.random() * 3 + 2) + "s";
+
+    paper.style.animationDelay =
+      Math.random() * 3 + "s";
+
+    document.body.appendChild(paper);
+  }
+});
+</script>
+
+</body>
+</html>
